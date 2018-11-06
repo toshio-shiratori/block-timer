@@ -89,7 +89,7 @@
       self.showShare = false
       self.update()
 
-      self.mixin('GridTimerTag').stopTimer()
+      self.mixin('ArakinTimerTag').stopTimer()
       self.observer.trigger(EVENT_MAIN_FINISH, null)
     }
 

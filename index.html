@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="114x114">
     <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="120x120">
     <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="144x144">    
+    <script src="js/arakin_driver.js"></script>
     <script>
       var protocol = location.protocol;
       if (protocol == 'https:') {
@@ -26,6 +27,23 @@
           });
         }
       }
+    </script>
+    <script type="module">
+      // メイン処理用のモジュールをインポート
+      import ArakinMain from "./module/arakin/arakin_main.js";
+
+      // メイン処理作成
+      // script typeをモジュールにした場合
+      // windowオブジェクトに設定しないと
+      // グローバルで呼べないためこのように設定しています。
+      var arakinMain = new ArakinMain();
+      window.arakinMain = arakinMain;
+
+      // Grid画面の初期化
+      // nameにはArakinMainの中で一意の名称
+      // canvasIdにはhtmlに配置したキャンバスのidを指定
+      // classはtimerツール用のものを使用するためArakinSceneGridTop固定で入れてください。
+      arakinMain.onEvent('next', {name:'scene3', canvasId:'canvas3',class:'ArakinSceneGridTop'}, getTimeValue());
     </script>
   </head>
   <body>
@@ -47,7 +65,7 @@
     <script src="tag/controller.tag" type="riot/tag"></script>
     <script src="tag/my-header.tag" type="riot/tag"></script>
     <script src="tag/content-main.tag" type="riot/tag"></script>
-    <script src="tag/grid-timer.tag" type="riot/tag"></script>
+    <script src="tag/arakin-timer.tag" type="riot/tag"></script>
     <script src="tag/content-input.tag" type="riot/tag"></script>
     <script src="tag/time-input.tag" type="riot/tag"></script>
     <script src="tag/my-dialog.tag" type="riot/tag"></script>

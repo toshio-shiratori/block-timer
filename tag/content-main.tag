@@ -8,7 +8,7 @@
     <div if={ stopBtnShow } class="overlay-return">
       <img class="icon" alt="stop" src="assets/img/ic_stop2.png" onclick={ onStop }>
     </div>
-    <grid-timer parent={ opts } setting={ setting }></grid-timer>
+    <arakin-timer parent={ opts } setting={ setting }></arakin-timer>
   </div>
 
   <style>
@@ -163,7 +163,7 @@
     // マウントイベント受信
     self.on('mount', function() {
       self.init(opts.setting)
-      riot.mount('grid-timer')
+      riot.mount('arakin-timer')
     })
 
     // メイン初期処理イベント受信

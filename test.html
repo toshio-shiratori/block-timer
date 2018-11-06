@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-enquiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="js/arakin_driver.js"></script>
+<script type="module">
+    // メイン処理用のモジュールをインポート
+    import ArakinMain from "./module/arakin/arakin_main.js";
+
+    /**
+     * 同期処理
+     * 各シーンの同期を行います。
+     */
+    function sync() {
+        // 同期処理を行う
+        window.arakinMain.onEvent('proc', null, getTimeValue());
+    }
+
+    // メイン処理作成
+    // script typeをモジュールにした場合
+    // windowオブジェクトに設定しないと
+    // グローバルで呼べないためこのように設定しています。
+    var arakinMain = new ArakinMain();
+    window.arakinMain = arakinMain;
+
+    // 花火画面の初期化
+    // nameにはArakinMainの中で一意の名称
+    // canvasIdにはhtmlに配置したキャンバスのidを指定
+    // classは花火ゲーム用のものを使用するためArakinSceneHanabiTop固定で入れてください。
+ //   arakinMain.onEvent('next', {name:'scene1', canvasId:'canvas1',class:'ArakinSceneHanabiTop'}, getTimeValue());
+
+    // JK画面の初期化
+    // nameにはArakinMainの中で一意の名称
+    // canvasIdにはhtmlに配置したキャンバスのidを指定
+    // classはJKゲーム用のものを使用するためArakinSceneJKTop固定で入れてください。
+//    arakinMain.onEvent('next', {name:'scene2', canvasId:'canvas2',class:'ArakinSceneJKTop'}, getTimeValue());
+
+    // Grid画面の初期化
+    // nameにはArakinMainの中で一意の名称
+    // canvasIdにはhtmlに配置したキャンバスのidを指定
+    // classはtimerツール用のものを使用するためArakinSceneGridTop固定で入れてください。
+    arakinMain.onEvent('next', {name:'scene3', canvasId:'canvas3',class:'ArakinSceneGridTop'}, getTimeValue());
+
+    // 同期処理を10ミリ秒毎に発生させるタイマーを登録
+    setInterval(sync, 10);
+
+</script>
+
+<script>
+    /**
+     * キーダウンイベント
+     * @paarm event e キーコードなどの情報
+     */
+    document.onkeydown = function (e){
+        if(!e) e = window.event;
+
+        // 各シーンにキーダウンイベントを送る
+        if ( window.arakinMain != null ) {
+            window.arakinMain.onEvent( 'keydown', {e:e}, getTimeValue());
+        }
+    };    
+
+    /**
+     * マウス移動イベント
+     * @paarm event e ボタンを押しながら等の情報
+     */
+     document.onmousemove = function (e){
+        if(!e) e = window.event;
+
+        // 各シーンにマウス移動イベントを送る
+        if ( window.arakinMain != null ) {
+            window.arakinMain.onEvent( 'mousemove', {e:e}, getTimeValue());
+        }
+    };    
+
+    /**
+     * マウスダウンイベント
+     * スマホ等のタップも同じイベントになります。
+     * @paarm event e ボタン等の情報
+     */
+     document.onmousedown = function (e){
+        if(!e) e = window.event;
+
+        // 各シーンにマウスダウンイベントを送る
+        if ( window.arakinMain != null ) {
+            window.arakinMain.onEvent( 'mousedown', {e:e}, getTimeValue());
+        }
+    };
+
+</script>
+</head>
+<body>
+    <!-- Grid用のキャンバス -->
+    <canvas id="canvas3" width="500" height="500"></canvas><br />
+</body>
+</html>
