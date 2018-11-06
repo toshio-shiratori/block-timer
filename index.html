@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="bTimer">
+    <title>BlockTIMER</title>
+    <link rel="icon" type="image/png" href="assets/img/ic-favicon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="114x114">
+    <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="assets/img/ic_bTimer.png" sizes="144x144">    
+    <script>
+      var protocol = location.protocol;
+      if (protocol == 'https:') {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+          .register('service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <app>
+      <my-header></my-header>
+      <content>
+        <content-input></content-input>
+        <content-main></content-main>
+        <time-input></time-input>
+        <my-dialog></my-dialog>
+        <share-dialog></share-dialog>
+      </content>
+      <my-footer></my-footer>
+      <controller></controller>
+    </app>
+
+    <script src="module/NoSleep/dist/NoSleep.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="tag/controller.tag" type="riot/tag"></script>
+    <script src="tag/my-header.tag" type="riot/tag"></script>
+    <script src="tag/content-main.tag" type="riot/tag"></script>
+    <script src="tag/grid-timer.tag" type="riot/tag"></script>
+    <script src="tag/content-input.tag" type="riot/tag"></script>
+    <script src="tag/time-input.tag" type="riot/tag"></script>
+    <script src="tag/my-dialog.tag" type="riot/tag"></script>
+    <script src="tag/share-dialog.tag" type="riot/tag"></script>
+    <script src="tag/my-footer.tag" type="riot/tag"></script>
+    <script src="https://cdn.jsdelivr.net/npm/riot@3.10.1/riot+compiler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/riot-route@3.0.0/dist/route.min.js"></script>
+    <script>
+      var winSize = getWindowSize()
+      console.log(winSize)
+
+      const HEADER_HEIGHT = 48
+      const FOOTER_HEIGHT = 40
+      const BODY_PADING = 8 * 2
+      const CONTENT_PADDING = 16 * 2
+      const CONTENT_HEIGHT = winSize.height - HEADER_HEIGHT - FOOTER_HEIGHT - BODY_PADING - CONTENT_PADDING
+
+      var defaultParam = getDefaultSetting()
+      var observer = riot.observable()
+      riot.mount('controller', {observer:observer})
+      riot.mount('my-header', {observer:observer, height:HEADER_HEIGHT})
+      riot.mount('content-main', {observer:observer, show:true, height:CONTENT_HEIGHT, setting:defaultParam})
+      riot.mount('content-input', {observer:observer, show:false, height:CONTENT_HEIGHT, setting:defaultParam})
+      riot.mount('time-input', {observer:observer, show:false})
+      riot.mount('my-dialog', {observer:observer, show:false})
+      riot.mount('share-dialog', {observer:observer, show:false})
+      riot.mount('my-footer', {height:FOOTER_HEIGHT})
+      route.start(true)
+    </script>
+
+  </body>
+</html>

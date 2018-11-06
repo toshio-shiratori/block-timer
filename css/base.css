@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body {
+  background-color: black;
+
+}
+
+content {
+  font-size: 1em;
+  color: white;
+}
+
+.blinking {
+  animation:blink 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes blink{
+  0% {opacity:1;}
+  50% {opacity:0;}
+  100% {opacity:1;}
+}
+
+button {
+  position: relative;
+  text-align: center;
+  margin-bottom: 10px;
+  text-decoration: none;
+  box-shadow: 1px 1px 1px white;
+  margin-top: 1em;
+  font-size: 1em;
+}
+
+button:active {
+  top: 4px;
+  box-shadow: none;
+}
